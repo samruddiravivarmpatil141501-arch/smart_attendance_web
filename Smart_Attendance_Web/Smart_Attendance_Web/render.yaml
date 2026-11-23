@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: smart-attendance-web
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ADMIN_USERNAME
+        value: admin
+      - key: ADMIN_PASSWORD
+        sync: false
+    disk:
+      name: attendance-data
+      mountPath: /opt/render/project/src/data
+      sizeGB: 1
